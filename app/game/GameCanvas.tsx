@@ -144,7 +144,7 @@ export default function GameCanvas() {
       aimAngle = angleLerp(aimAngle, targetAngle, 0.2);
       const im = imgRef.current;
       if (im && im.complete && im.naturalWidth > 0) {
-        const IH = scale * 0.4, IW = IH * (im.naturalWidth / im.naturalHeight);
+        const IH = scale * 0.3, IW = IH * (im.naturalWidth / im.naturalHeight);
         const recoil = now - lastFireAt < 120 ? 0.92 : 1;
         const nx = NOZZLE.x * W, ny = NOZZLE.y * H;
         ctx.save();
