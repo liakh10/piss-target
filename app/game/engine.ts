@@ -29,7 +29,7 @@ export interface Splash { x: number; y: number; bornAt: number; kind: "hit" | "m
 
 export type Phase = "idle" | "playing" | "over";
 
-export const NOZZLE = { x: 0.12, y: 0.82 };
+export const NOZZLE = { x: 0.1, y: 0.13 };
 const G = 2.05;
 const ROUND_TIME = 60;
 const MAX_TARGETS = 4;

@@ -42,6 +42,16 @@ export default function GameCanvas() {
 
     const dpr = Math.min(2, window.devicePixelRatio || 1);
     let W = 0, H = 0, lastFireAt = -1000;
+    // TIP_ANGLE0 is the glans' angle from the source png's own center (measured
+    // pixel centroid). aimAngle turns to match wherever the last shot was aimed,
+    // eased each frame so the sprite visibly swings left/right, not snaps.
+    const TIP_ANGLE0 = Math.atan2(0.773 - 0.5, 0.872 - 0.5);
+    let aimAngle = Math.atan2(0.4 - NOZZLE.y, 0.5 - NOZZLE.x);
+    let targetAngle = aimAngle;
+    const angleLerp = (a: number, b: number, t: number) => {
+      const d = ((b - a + Math.PI) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2) - Math.PI;
+      return a + d * t;
+    };
 
     const pt = (e: PointerEvent) => {
       const r = canvas.getBoundingClientRect();
@@ -51,6 +61,7 @@ export default function GameCanvas() {
       if (gameRef.current?.phase !== "playing") return;
       const { nx, ny } = pt(e);
       gameRef.current.fire(nx, ny);
+      targetAngle = Math.atan2(ny - NOZZLE.y, nx - NOZZLE.x);
       s.squirt();
       lastFireAt = performance.now();
     };
@@ -127,9 +138,10 @@ export default function GameCanvas() {
         }
       }
 
-      // nozzle character — rotated so the glans (measured tip, ~87%/77% into the
-      // source png) points up-right into the field; the stream physics origin
-      // (NOZZLE) is pinned to that exact same pixel so the pee visibly starts there.
+      // nozzle character, top-left — turns to face wherever it's currently firing.
+      // The glans (measured tip, ~87%/77% into the source png) is pinned exactly
+      // to NOZZLE so the pee visibly starts at that pixel at every angle.
+      aimAngle = angleLerp(aimAngle, targetAngle, 0.2);
       const im = imgRef.current;
       if (im && im.complete && im.naturalWidth > 0) {
         const IH = scale * 0.4, IW = IH * (im.naturalWidth / im.naturalHeight);
@@ -137,7 +149,7 @@ export default function GameCanvas() {
         const nx = NOZZLE.x * W, ny = NOZZLE.y * H;
         ctx.save();
         ctx.translate(nx, ny);
-        ctx.rotate(-Math.PI / 2);
+        ctx.rotate(aimAngle - TIP_ANGLE0);
         ctx.scale(recoil, recoil);
         ctx.drawImage(im, -0.872 * IW, -0.773 * IH, IW, IH);
         ctx.restore();
