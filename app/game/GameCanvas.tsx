@@ -127,15 +127,19 @@ export default function GameCanvas() {
         }
       }
 
-      // nozzle character
+      // nozzle character — rotated so the glans (measured tip, ~87%/77% into the
+      // source png) points up-right into the field; the stream physics origin
+      // (NOZZLE) is pinned to that exact same pixel so the pee visibly starts there.
       const im = imgRef.current;
       if (im && im.complete && im.naturalWidth > 0) {
         const IH = scale * 0.4, IW = IH * (im.naturalWidth / im.naturalHeight);
-        const recoil = now - lastFireAt < 120 ? 0.9 : 1;
+        const recoil = now - lastFireAt < 120 ? 0.92 : 1;
         const nx = NOZZLE.x * W, ny = NOZZLE.y * H;
         ctx.save();
-        ctx.translate(nx, ny); ctx.scale(1, recoil); ctx.translate(-nx, -ny);
-        ctx.drawImage(im, nx - IW * 0.86, ny - IH * 0.72, IW, IH);
+        ctx.translate(nx, ny);
+        ctx.rotate(-Math.PI / 2);
+        ctx.scale(recoil, recoil);
+        ctx.drawImage(im, -0.872 * IW, -0.773 * IH, IW, IH);
         ctx.restore();
       }
 
