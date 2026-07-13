@@ -17,6 +17,7 @@ const NAV = [
   { href: "#play", label: "Play" },
   { href: "#how", label: "How" },
   { href: "#gallery", label: "Targets" },
+  { href: "/docs", label: "Docs" },
 ];
 
 const HOW = [
@@ -170,7 +171,7 @@ export default function Home() {
         <footer className="footer">
           <div className="footer-top reveal">
             <a href="#top" className="brand"><Image src="/art/pisser.png" alt="" width={22} height={22} className="brand-mascot" /> <b>Piss Target</b></a>
-            <div className="footer-links"><a href="#play">Play</a><a href="#how">How</a><a href="#gallery">Targets</a><a href={X_URL} target="_blank" rel="noreferrer" className="footer-x" aria-label="X"><XIcon size={14} /></a></div>
+            <div className="footer-links"><a href="#play">Play</a><a href="#how">How</a><a href="#gallery">Targets</a><a href="/docs">Docs</a><a href={X_URL} target="_blank" rel="noreferrer" className="footer-x" aria-label="X"><XIcon size={14} /></a></div>
           </div>
           <div className="footer-buy reveal"><CABlock /><BuyLinks small /></div>
           <p className="footer-bottom">© {new Date().getFullYear()} {TICKER} · aim responsibly</p>
