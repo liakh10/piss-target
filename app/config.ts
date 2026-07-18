@@ -1,6 +1,6 @@
 // Token / Contract Address config. On launch, replace CA with the real address,
 // commit & push — the site picks it up automatically (GitHub → Vercel auto-deploy).
-export const CA: string = "SOON"; // Replace with real CA on launch
+export const CA: string = "7briNPp6Ue7rCoZY4SCVJ9cnECACqkGmXWZne4N5pump"; // Replace with real CA on launch
 export const TICKER = "$PISS";
 export const TOKEN_NAME = "Piss Target";
 export const X_URL = "https://x.com/pisstarget_xyz"; // Replace with your X handle
