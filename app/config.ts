@@ -3,7 +3,7 @@
 export const CA: string = "SOON"; // Replace with real CA on launch
 export const TICKER = "$PISS";
 export const TOKEN_NAME = "Piss Target";
-export const X_URL = "https://x.com/soon"; // Replace with your X handle
+export const X_URL = "https://x.com/pisstarget_xyz"; // Replace with your X handle
 
 // CA block: CA + Pump Fun + DexScreener. Link tails pull the CA variable (no hardcoding).
 export const PUMP_URL = "https://pump.fun/coin/";
